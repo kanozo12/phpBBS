@@ -1,7 +1,16 @@
+<?php
+	require_once("lib.php");
+
+	if(!isset($_SESSION['user'])) {
+		msgAndBack("로그인후 접근 가능합니다.");
+		exit;
+	} 
+ ?>
 <!DOCTYPE html>
 <html lang="ko">
 <?php require_once "head.php"; ?>
 <body>
+	<?php require_once "header.php" ?>
 	<div class="container">
 		<h1>글쓰기</h1>
 		<div class="row">
@@ -12,7 +21,7 @@
 							글쓴이
 						</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" id="writer" name="writer">
+							<input type="text" class="form-control" id="writer" name="writer" value="<?= $_SESSION['user']->name ?>" readonly>
 						</div>
 					</div>
 					<div class="form-group row">

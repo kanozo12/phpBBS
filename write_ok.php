@@ -1,15 +1,21 @@
 <?php
+
 	require "lib.php";
 
+
+	if(!isset($_SESSION['user'])) {
+		msgAndBack("로그인후 접근 가능합니다.");
+		exit;
+	} 
+	
 	$title = $_POST['title'];
-	$writer = $_POST['writer'];
+	$writer = $_SESSION['user']->email;
 	$content = $_POST['content'];
 
-	if($title == "" || $writer == "" || $content == "") {
+	if($title == "" || $writer == "" || $content == ""){
 		msgAndBack("필수 입력사항이 빈칸입니다.");
 		exit;
 	}
-
 
 	$sql = "INSERT INTO phpBoards (title, writer, content) VALUES(?, ?, ?)";
 
@@ -22,11 +28,5 @@
 		echo "<h1>글작성 실패</h1>";
 		echo "<a href='/write.php'>다시 작성하기</a>";
 	}
-
-	function msgAndBack($msg) {
-		echo "<script>";
-		echo "alert('$msg');";
-		echo "history.back();";
-		echo "</script>";
-	} 
 ?>
+
